@@ -168,6 +168,7 @@ class Life {
       delete grid[i];
       delete neighbors[i];
     }
+    delete grid;
     delete neighbors;
   }
 
