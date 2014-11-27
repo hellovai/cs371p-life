@@ -66,7 +66,7 @@ class Cell {
   AbstractCell* _c;
 
  public:
-  Cell() : _c(new FredkinCell()) {}
+  Cell() { _c = new FredkinCell(); }
   Cell(const Cell& c) : _c(c._c->clone()) {}
 
   char print() const { return _c->print(); }
@@ -139,11 +139,11 @@ class Life {
       for (int j = 0; j < M; ++j) {
         delete grid[i][j];
       }
-      delete grid[i];
-      delete neighbors[i];
+      delete[] grid[i];
+      delete[] neighbors[i];
     }
-    delete grid;
-    delete neighbors;
+    delete[] grid;
+    delete[] neighbors;
   }
 
   std::ostream& print(std::ostream& os) const {

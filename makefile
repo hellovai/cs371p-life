@@ -23,9 +23,9 @@ TestLife: Life.h Life.c++ TestLife.c++
 	g++-4.7 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Life.c++ TestLife.c++ -o TestLife -lgtest -lgtest_main -lpthread
 
 TestLife.out: TestLife
-	valgrind TestLife        >  TestLife.out 2>&1
-	gcov-4.7 -b Life.c++     >> TestLife.out
-	gcov-4.7 -b TestLife.c++ >> TestLife.out
+	valgrind --leak-check=full TestLife        >  TestLife.out 2>&1
+	# gcov-4.7 -b Life.c++     >> TestLife.out
+	# gcov-4.7 -b TestLife.c++ >> TestLife.out
 
 clean:
 	rm -f *.gcda
