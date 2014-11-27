@@ -109,4 +109,97 @@ class Cell {
   ~Cell() { delete _c; }
 };
 
+template <typename T>
+class Life {
+ private:
+  int N, M;
+  T*** grid;
+  int** neighbors;
+
+  int counter;
+  int population;
+
+  inline bool inRange(int r, int c) const {
+    return (r >= 0) && (c >= 0) && (r < N) && (c < M);
+  }
+
+  // also call this to get population as well
+  void getNeighbors() {
+    for (int i = 0; i < N; i++)
+      for (int j = 0; j < M; j++) neighbors[i][j] = 0;
+    population = 0;
+    for (int i = 0; i < N; i++)
+      for (int j = 0; j < M; j++) {
+        if (grid[i][j]->isAlive()) {
+          population++;
+        }
+        for (int ri = -1; ri <= 1; ri++)
+          for (int cj = -1; cj <= 1; cj++)
+            if (inRange(i + ri, j + cj) && !(ri == 0 && cj == 0))
+              if (grid[i][j]->isNeighbor(ri, cj))
+                neighbors[i][j] += grid[i + ri][j + cj]->isAlive();
+      }
+  }
+
+  void evolve() {
+    for (int i = 0; i < N; i++)
+      for (int j = 0; j < M; j++) grid[i][j]->evolve(neighbors[i][j]);
+  }
+
+ public:
+  Life(int rows, int cols) : N(rows), M(cols), counter(0), population(0) {
+    grid = new T** [N];
+    neighbors = new int* [N];
+    for (int i = 0; i < N; ++i) {
+      grid[i] = new T* [M];
+      neighbors[i] = new int[M];
+      for (int j = 0; j < M; ++j) {
+        grid[i][j] = new T();
+        neighbors[i][j] = 0;
+      }
+    }
+  }
+
+  ~Life() {
+    for (int i = 0; i < N; ++i) {
+      for (int j = 0; j < M; ++j) {
+        delete grid[i][j];
+      }
+      delete grid[i];
+      delete neighbors[i];
+    }
+    delete neighbors;
+  }
+
+  std::ostream& print(std::ostream& os) const {
+    os << "Generation = " << counter << ", Population = " << population << "."
+       << std::endl;
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < M; j++) os << grid[i][j]->print();
+      os << std::endl;
+    }
+    return os;
+  }
+
+  std::istream& parse(std::istream& is) {
+    std::string temp;
+    is >> temp >> temp >> temp; // for 3 junk values in front
+    for (int i = 0; i < N; i++) {
+      is >> temp;
+      for (int j = 0; j < M; j++)
+        grid[i][j]->setValue(temp[j]);
+    }
+    getNeighbors();
+    return is;
+  }
+
+  void run(int c = 1) {
+    while (c--) {
+      evolve();
+      getNeighbors();
+      counter++;
+    }
+  }
+};
+
 #endif
