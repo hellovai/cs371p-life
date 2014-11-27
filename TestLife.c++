@@ -180,3 +180,91 @@ TEST(Life, life3) {
   test.print(o);
   ASSERT_EQ("Generation = 0, Population = 1.\n--\n-1\n", o.str());
 }
+
+TEST(Life, life4) {
+  std::istringstream r("Cell\n2\n2\n-*\n1-\n");
+  std::ostringstream o;
+  Life<Cell> test(2,2);
+  test.parse(r);
+  test.print(o);
+  ASSERT_EQ("Generation = 0, Population = 2.\n-*\n1-\n", o.str());
+}
+
+TEST(Life, life5) {
+  std::istringstream r("Cell\n2\n2\n..\n..\n");
+  std::ostringstream o;
+  Life<Cell> test(2,2);
+  test.parse(r);
+  test.print(o);
+  ASSERT_EQ("Generation = 0, Population = 0.\n..\n..\n", o.str());
+}
+
+TEST(Life, evolve0) {
+  std::istringstream r("ConwayCell\n2\n2\n..\n..\n");
+  std::ostringstream o;
+  Life<ConwayCell> test(2,2);
+  test.parse(r);
+  test.run();
+  test.print(o);
+  ASSERT_EQ("Generation = 1, Population = 0.\n..\n..\n", o.str());
+}
+
+TEST(Life, evolve1) {
+  std::istringstream r("ConwayCell\n2\n2\n..\n.*\n");
+  std::ostringstream o;
+  Life<ConwayCell> test(2,2);
+  test.parse(r);
+  test.run();
+  test.print(o);
+  ASSERT_EQ("Generation = 1, Population = 0.\n..\n..\n", o.str());
+}
+
+TEST(Life, evolve2) {
+  std::istringstream r("FredkinCell\n2\n2\n--\n--\n");
+  std::ostringstream o;
+  Life<FredkinCell> test(2,2);
+  test.parse(r);
+  test.run();
+  test.print(o);
+  ASSERT_EQ("Generation = 1, Population = 0.\n--\n--\n", o.str());
+}
+
+TEST(Life, evolve3) {
+  std::istringstream r("FredkinCell\n2\n2\n--\n-1\n");
+  std::ostringstream o;
+  Life<FredkinCell> test(2,2);
+  test.parse(r);
+  test.run();
+  test.print(o);
+  ASSERT_EQ("Generation = 1, Population = 2.\n-0\n0-\n", o.str());
+}
+
+TEST(Life, evolve4) {
+  std::istringstream r("Cell\n2\n2\n-*\n1-\n");
+  std::ostringstream o;
+  Life<Cell> test(2,2);
+  test.parse(r);
+  test.run();
+  test.print(o);
+  ASSERT_EQ("Generation = 1, Population = 0.\n-.\n--\n", o.str());
+}
+
+TEST(Life, evolve5) {
+  std::istringstream r("Cell\n2\n2\n..\n..\n");
+  std::ostringstream o;
+  Life<Cell> test(2,2);
+  test.parse(r);
+  test.run();
+  test.print(o);
+  ASSERT_EQ("Generation = 1, Population = 0.\n..\n..\n", o.str());
+}
+
+TEST(Life, evolve6) {
+  std::istringstream r("Cell\n4\n4\n-*--\n--1-\n");
+  std::ostringstream o;
+  Life<Cell> test(4,4);
+  test.parse(r);
+  test.run(5);
+  test.print(o);
+  ASSERT_EQ("Generation = 5, Population = 6.\n0.-1\n.0.-\n**--\n.0.-\n", o.str());
+}
