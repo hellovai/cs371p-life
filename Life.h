@@ -33,13 +33,7 @@ class ConwayCell : public AbstractCell {
 
   virtual char print() const { return alive ? CONWAY_ALIVE : CONWAY_DEAD; }
 
-  virtual void evolve(int neighbors) {
-    assert(neighbors >= 0 && neighbors < 9);
-    if (!alive && neighbors == 3)
-      alive = true;
-    else if (alive && (neighbors < 2 || neighbors > 3))
-      alive = false;
-  }
+  virtual void evolve(int neighbors);
 
   virtual void setValue(char c) {
     assert(c == CONWAY_ALIVE || c == CONWAY_DEAD);
@@ -61,26 +55,9 @@ class FredkinCell : public AbstractCell {
 
   virtual char print() const { return alive ? ageChar() : FREDKIN_DEAD; }
 
-  virtual void evolve(int neighbors) {
-    assert(neighbors >= 0 && neighbors < 5);
-    if (!alive && (neighbors == 1 || neighbors == 3))
-      alive = true;
-    else if (alive) {
-      if (neighbors == 0 || neighbors == 2 || neighbors == 4)
-        alive = false;
-      else
-        ++age;
-    }
-  }
+  virtual void evolve(int neighbors);
 
-  virtual void setValue(char c) {
-    assert(c == FREDKIN_DEAD || c == FREDKIN_MANY || (c >= '0' && c <= '9'));
-    alive = !(c == FREDKIN_DEAD);
-    age = 0;
-    if (alive) {
-      age = (c == FREDKIN_MANY) ? 10 : ((int)c - '0');
-    }
-  }
+  virtual void setValue(char c);
 
   virtual bool isNeighbor(int h, int v) const { return h == 0 || v == 0; }
 };
@@ -94,20 +71,9 @@ class Cell {
 
   char print() const { return _c->print(); }
 
-  void evolve(int neighbors) {
-    _c->evolve(neighbors);
-    FredkinCell* fc = dynamic_cast<FredkinCell*>(_c);
-    if (fc != nullptr && fc->age == 2) setValue(CONWAY_ALIVE);
-  }
+  void evolve(int neighbors);
 
-  void setValue(char c) {
-    FredkinCell* fc = dynamic_cast<FredkinCell*>(_c);
-    if (fc != nullptr && (CONWAY_ALIVE == c || CONWAY_DEAD == c)) {
-      delete _c;
-      _c = new ConwayCell();
-    }
-    _c->setValue(c);
-  }
+  void setValue(char c);
 
   bool isAlive() const { return _c->isAlive(); }
 
