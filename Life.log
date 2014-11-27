@@ -1,0 +1,83 @@
+commit acedfa6ff8d645ae14395dc667727409a21e46a0
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 17:11:28 2014 -0600
+
+    Adding remaining files
+
+commit 20b76fc9587d3f5677350696f3e9845348e83f48
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 17:05:36 2014 -0600
+
+    Adding UML. Closes #10
+
+commit f5160e1f57c8f697c31f46de140cd196f47d3b92
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 16:49:39 2014 -0600
+
+    Adding doxygen. Closes #6
+
+commit 915c5292e60564889ca44d820b3418c10843dbcf
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 16:46:54 2014 -0600
+
+    Adding better neighors methods
+
+commit d28850379f4ac04609f8368de55aca2ca5877aef
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 16:38:57 2014 -0600
+
+    Completed Test cases
+
+commit 1a0dfd71c628368e0fe8688bc465687197d47d76
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 16:32:46 2014 -0600
+
+    Memory leaks fixed
+
+commit 231556ccce3e2617c73beae13eb140a1a246a524
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 07:26:58 2014 -0600
+
+    Separating into c++ file. Closes #16
+
+commit 202fc3118e83b622d3bbbcc6cb13acfde2b85bf7
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 07:14:52 2014 -0600
+
+    Post and pre conditions where needed. Closes #11. Closes #12. Closes #13. Closes #14
+
+commit 4e4b903f2417cbae0b45be9b773d28bfd70036b2
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 07:08:18 2014 -0600
+
+    Fixes memory leak. Closes #20
+
+commit c4c0815e0ff7b918115d4df53b5d1389be13c354
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 07:07:50 2014 -0600
+
+    Adding life class. Closes #15
+
+commit 72a9325b7b7eb71eb21da325bccbcab0d4f54e6a
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 07:06:42 2014 -0600
+
+    Adding various cells
+
+commit 051cac99ba156986587f6a9a63a19d2ff6c5683e
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 07:06:06 2014 -0600
+
+    Abstraction for AbstractCell. Closes #18
+
+commit 7280fa6247221f5b9857f54fe77e0e5ef198482b
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Thu Nov 27 06:58:55 2014 -0600
+
+    Adding template for how i expect it to work
+
+commit 02f6109fb65220c3ccb1d94d774294c623d7553d
+Author: Vaibhav Gupta <vaibhavtheory@gmail.com>
+Date:   Sun Nov 23 17:59:56 2014 -0600
+
+    Adding initial files
