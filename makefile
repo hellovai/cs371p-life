@@ -24,8 +24,8 @@ TestLife: Life.h Life.c++ TestLife.c++
 
 TestLife.out: TestLife
 	valgrind --leak-check=full TestLife        >  TestLife.out 2>&1
-	# gcov-4.7 -b Life.c++     >> TestLife.out
-	# gcov-4.7 -b TestLife.c++ >> TestLife.out
+	gcov-4.7 -b Life.c++     >> TestLife.out
+	gcov-4.7 -b TestLife.c++ >> TestLife.out
 
 clean:
 	rm -f *.gcda

@@ -33,7 +33,6 @@ int main() {
     }
     test.print(std::cout) << std::endl;
   }
-  exit(-1);
   /*
   Simulate 12 evolutions.
   Print every grid (i.e. 0, 1, 2, 3, ... 12)

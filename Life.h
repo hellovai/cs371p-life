@@ -102,16 +102,20 @@ class Life {
       for (int j = 0; j < M; j++) neighbors[i][j] = 0;
     population = 0;
     for (int i = 0; i < N; i++)
-      for (int j = 0; j < M; j++) {
+      for (int j = 0; j < M; j++)
         if (grid[i][j]->isAlive()) {
           population++;
+          // check which cells around it consider it a neighbor
+          for (int ri = -1; ri <= 1; ri++)
+          for (int cj = -1; cj <= 1; cj++) {
+            int ni = ri + i;
+            int nj = cj + j;
+            if (inRange(ni, nj) && !(ri == 0 && cj == 0)) {
+              if (grid[ni][nj]->isNeighbor(ni - i, nj - j))
+                neighbors[ni][nj]++;
+            }
+          }
         }
-        for (int ri = -1; ri <= 1; ri++)
-          for (int cj = -1; cj <= 1; cj++)
-            if (inRange(i + ri, j + cj) && !(ri == 0 && cj == 0))
-              if (grid[i][j]->isNeighbor(ri, cj))
-                neighbors[i][j] += grid[i + ri][j + cj]->isAlive();
-      }
     assert(population >= 0 && population <= N * M);
   }
 
