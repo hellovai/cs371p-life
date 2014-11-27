@@ -2,6 +2,7 @@
 #define __LIFE_H__
 
 #include <iostream>
+#include <cassert>
 
 #define CONWAY_DEAD '.'
 #define CONWAY_ALIVE '*'
@@ -33,13 +34,17 @@ class ConwayCell : public AbstractCell {
   virtual char print() const { return alive ? CONWAY_ALIVE : CONWAY_DEAD; }
 
   virtual void evolve(int neighbors) {
+    assert(neighbors >= 0 && neighbors < 9);
     if (!alive && neighbors == 3)
       alive = true;
     else if (alive && (neighbors < 2 || neighbors > 3))
       alive = false;
   }
 
-  virtual void setValue(char c) { alive = (c == CONWAY_ALIVE); }
+  virtual void setValue(char c) {
+    assert(c == CONWAY_ALIVE || c == CONWAY_DEAD);
+    alive = (c == CONWAY_ALIVE);
+  }
 
   virtual bool isNeighbor(int h, int v) const { return true; }
 };
@@ -57,6 +62,7 @@ class FredkinCell : public AbstractCell {
   virtual char print() const { return alive ? ageChar() : FREDKIN_DEAD; }
 
   virtual void evolve(int neighbors) {
+    assert(neighbors >= 0 && neighbors < 5);
     if (!alive && (neighbors == 1 || neighbors == 3))
       alive = true;
     else if (alive) {
@@ -68,6 +74,7 @@ class FredkinCell : public AbstractCell {
   }
 
   virtual void setValue(char c) {
+    assert(c == FREDKIN_DEAD || c == FREDKIN_MANY || (c >= '0' && c <= '9'));
     alive = !(c == FREDKIN_DEAD);
     age = 0;
     if (alive) {
@@ -139,6 +146,7 @@ class Life {
               if (grid[i][j]->isNeighbor(ri, cj))
                 neighbors[i][j] += grid[i + ri][j + cj]->isAlive();
       }
+    assert(population >= 0 && population <= N * M);
   }
 
   void evolve() {
@@ -184,11 +192,10 @@ class Life {
 
   std::istream& parse(std::istream& is) {
     std::string temp;
-    is >> temp >> temp >> temp; // for 3 junk values in front
+    is >> temp >> temp >> temp;  // for 3 junk values in front
     for (int i = 0; i < N; i++) {
       is >> temp;
-      for (int j = 0; j < M; j++)
-        grid[i][j]->setValue(temp[j]);
+      for (int j = 0; j < M; j++) grid[i][j]->setValue(temp[j]);
     }
     getNeighbors();
     return is;
